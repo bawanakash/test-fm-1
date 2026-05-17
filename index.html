@@ -2,316 +2,328 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bawan's Global Live Station</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #050b14;
-            --card-bg: rgba(17, 25, 40, 0.75);
-            --accent-glow: #3b82f6;
-            --accent-neon: #00f2fe;
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
-        }
+        /* --- CORE STYLING & ANIMATED BACKGROUND --- */
+        * { box-sizing: border-box; }
         
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #050b14 100%);
-            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 15px;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* Sleek Glassmorphism App Container */
-        .container {
-            width: 100%;
-            max-width: 450px;
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 25px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        h1 {
-            font-size: 24px;
-            font-weight: 900;
-            margin: 0 0 5px 0;
-            background: linear-gradient(to right, #fff, var(--accent-neon));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
-        
-        p.subtitle { color: var(--accent-glow); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 20px 0; }
-        h3 { margin: 0 0 12px 0; color: #fff; font-weight: 600; font-size: 15px; text-align: left;}
-        
-        /* Premium Player Box */
-        .media-box {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 20px;
-            border-radius: 18px;
-            margin: 15px 0;
-            min-height: 140px;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            flex-direction: column;
-            border: 1px solid rgba(0, 242, 254, 0.1);
-            position: relative;
+            align-items: center;
+            color: #ffffff;
+            /* Animated Deep Gradient Background */
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f172a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow: hidden;
         }
 
-        audio, video { 
-            width: 100%; 
-            max-height: 220px; 
-            border-radius: 12px; 
-            margin-top: 15px;
-            outline: none;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        
-        /* Modern Inputs */
-        input[type="text"], input[type="password"], textarea {
-            width: 100%;
-            padding: 14px;
-            margin: 8px 0;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(0, 0, 0, 0.3);
-            color: #fff;
-            font-size: 15px;
+
+        /* --- GLASSMORPHISM PANELS --- */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             transition: all 0.3s ease;
         }
 
-        input:focus, textarea:focus { border-color: var(--accent-neon); outline: none; background: rgba(0, 0, 0, 0.5); }
-        
-        /* High-Converting Buttons */
-        button {
+        h2, h3 { margin-top: 0; font-weight: 600; letter-spacing: 1px; }
+        h2 { color: #00f2fe; text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
+        h3 { color: #e0e0e0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+
+        /* --- PREMIUM INPUTS & BUTTONS --- */
+        input {
             width: 100%;
-            padding: 16px;
-            margin: 10px 0;
+            padding: 14px 20px;
+            margin: 15px 0;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
-            font-weight: 800;
-            font-size: 15px;
-            cursor: pointer;
-            border: none;
-            color: #050b14;
-            background: linear-gradient(135deg, var(--accent-neon), var(--accent-glow));
-            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
         }
 
-        button:active { transform: scale(0.97); }
+        input:focus {
+            outline: none;
+            border-color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+        }
 
-        /* Custom Mobile Tune-In Button */
-        #tuneInBtn { background: #10b981; color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+        input::placeholder { color: rgba(255, 255, 255, 0.5); }
 
-        .admin-section { border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 20px; padding-top: 20px; width: 100%; max-width: 450px; }
-        .hidden { display: none !important; }
-        .success-text { color: #10b981; font-size: 13px; font-weight: 600; }
+        button {
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.6);
+        }
+
+        button:active { transform: translateY(1px); }
+
+        /* --- POPUP SPECIFICS --- */
+        #entry-popup {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
         
-        /* Chat Box styling */
-        .chat-box { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; height: 150px; overflow-y: auto; text-align: left; font-size: 14px; border: 1px solid rgba(255,255,255,0.05); }
-        .chat-msg { border-bottom: 1px solid rgba(255,255,255,0.05); padding: 8px 0; color: #e2e8f0; }
+        .popup-content { width: 350px; text-align: center; }
+
+        /* --- MAIN APP LAYOUT --- */
+        #main-app {
+            display: none;
+            width: 95%; max-width: 1000px;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        #greeting-bar {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+            font-weight: 300;
+            color: #a8c0ff;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+
+        /* --- CHAT SPECIFICS & SCROLLBAR --- */
+        #chat-box {
+            height: 350px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Custom Scrollbar */
+        #chat-box::-webkit-scrollbar { width: 8px; }
+        #chat-box::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); border-radius: 10px; }
+        #chat-box::-webkit-scrollbar-thumb { background: rgba(0, 242, 254, 0.5); border-radius: 10px; }
+        #chat-box::-webkit-scrollbar-thumb:hover { background: rgba(0, 242, 254, 0.8); }
+
+        .message { margin-bottom: 15px; font-size: 14px; line-height: 1.4; animation: slideIn 0.3s ease; }
+        .message .sender { font-weight: 600; color: #4facfe; margin-right: 5px;}
+
+        /* Admin Message Decoration */
+        .message.admin-msg {
+            background: linear-gradient(90deg, rgba(255, 171, 0, 0.15) 0%, transparent 100%);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffab00;
+        }
+        .message.admin-msg .sender { color: #ffab00; }
+        .admin-badge {
+            background: #ffab00; color: #000; font-size: 10px; font-weight: bold;
+            padding: 2px 6px; border-radius: 12px; margin-left: 5px;
+            box-shadow: 0 0 8px rgba(255, 171, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        /* --- UTILS --- */
+        .hidden { display: none !important; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>📻 BAWAN'S STATION</h1>
-        <p class="subtitle">Global Live Broadcast</p>
-
-        <button id="tuneInBtn">🎧 Tap Here to Tune In</button>
-
-        <div class="media-box hidden" id="mediaContainer">
-            <div id="playingAnimation" class="hidden" style="color: var(--accent-neon); font-size: 24px; margin-bottom: 10px;">ılıılıılı</div>
-            <p id="trackNameDisplay" style="font-weight: 700; color: #fff; margin: 0; font-size: 15px; word-break: break-all;">Waiting for stream...</p>
-            <div id="playerRoot" style="width: 100%;"></div>
-        </div>
-
-        <div style="margin-top: 25px; text-align: left;">
-            <h3>Send a Request / Say Hi</h3>
-            <textarea id="userSuggestion" placeholder="Type a message..." rows="2"></textarea>
-            <button id="submitSuggestBtn" type="button" style="background: rgba(255,255,255,0.1); color: #fff; box-shadow: none;">Send Message 🚀</button>
-            <p id="successMsg" class="success-text hidden">✓ Message sent to studio!</p>
+    <div id="entry-popup">
+        <div class="glass-panel popup-content">
+            <h2>Bawan Radio</h2>
+            <p style="color: #ccc; font-size: 14px;">Enter the studio to start listening</p>
+            <input type="text" id="listener-name" placeholder="Your Display Name..." required autocomplete="off">
+            <button onclick="tuneIn()">Tune In Live</button>
         </div>
     </div>
 
-    <div class="admin-section">
-        <div id="adminLoginGate" class="container" style="background: rgba(0,0,0,0.4); border:none;">
-            <h3 style="text-align: center;">Studio Access</h3>
-            <input type="password" id="adminPassInput" placeholder="Enter Password (0135)">
-            <button id="loginBtn" type="button" style="background: #334155; color: white; box-shadow:none;">Login</button>
+    <div id="main-app" class="hidden">
+        
+        <div id="greeting-bar">
+            <span id="dynamic-greeting">Welcome</span>, <span id="display-name" style="color: #fff; font-weight: 600;">Listener</span>!
         </div>
 
-        <div id="bawanControlPanel" class="container hidden" style="border: 1px solid var(--accent-glow);">
-            <h2 style="margin-top:0; color:#fff; font-size:20px; text-align: center;">👑 Studio Console</h2>
+        <div class="dashboard-grid">
             
-            <div style="text-align: left; margin-top: 20px;">
-                <label style="font-size:13px; font-weight:700; color: var(--accent-neon); text-transform: uppercase;">Broadcast New Track:</label>
-                <input type="file" id="mediaUpload" accept="audio/*, video/*" style="padding: 10px; margin-top:8px;">
-                <p id="uploadStatus" class="hidden" style="font-size:13px; margin: 8px 0 0 0; color: #f59e0b; font-weight:bold;"></p>
-            </div>
-
-            <div style="margin-top: 25px;">
-                <label style="font-size:13px; font-weight:700; color: var(--text-dim); text-transform: uppercase;">Live Listener Inbox:</label>
-                <div id="adminInbox" class="chat-box" style="margin-top: 8px;">
-                    <p style="color: var(--text-dim); text-align:center;">No messages yet.</p>
+            <div class="glass-panel">
+                <h3>Live Studio Chat</h3>
+                <div id="chat-box"></div>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off">
+                    <button onclick="sendChatMessage()" style="width: 100px;">Send</button>
                 </div>
             </div>
+
+            <div class="glass-panel">
+                <h3>Admin Console</h3>
+                
+                <div id="admin-login">
+                    <p style="color: #aaa; font-size: 13px; margin-bottom: 15px;">Authorized personnel only. Enter key to unlock broadcasting.</p>
+                    <input type="password" id="admin-password" placeholder="Studio Password">
+                    <button onclick="loginAdmin()" style="background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%); color: white; box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);">Unlock Console</button>
+                </div>
+                
+                <div id="admin-controls" class="hidden">
+                    <div style="text-align: center; padding: 20px 0;">
+                        <span style="font-size: 40px;">🎛️</span>
+                        <p style="color: #4facfe; font-weight: 600; font-size: 18px;">Console Unlocked</p>
+                        <p style="color: #ccc; font-size: 14px;">You are now chatting as the Host. Ready to broadcast.</p>
+                        </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 
+    <audio id="station-audio" loop>
+        <source src="YOUR_AUDIO_LINK_HERE.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
-        const SUPABASE_URL = "https://nwyvennvjugzsdamqrug.supabase.co"; 
-        const SUPABASE_KEY = "sb_publishable_qHQLQ1YPmDwweggO0mWNPw_piFdvS8R";
+        let currentUser = "";
+        let isAdmin = false;
 
-        const tuneInBtn = document.getElementById('tuneInBtn');
-        const mediaContainer = document.getElementById('mediaContainer');
-        const playerRoot = document.getElementById('playerRoot');
-        const trackNameDisplay = document.getElementById('trackNameDisplay');
-        const playingAnimation = document.getElementById('playingAnimation');
-        
-        let currentActiveUrl = "";
-        let isListening = false; // Prevents mobile from fetching until user taps play
-
-        // --- 1. MOBILE TUNE IN LOGIC ---
-        tuneInBtn.addEventListener('click', () => {
-            isListening = true;
-            tuneInBtn.classList.add('hidden');
-            mediaContainer.classList.remove('hidden');
-            syncGlobalStream(); // Start fetching the song immediately
-        });
-
-        // --- 2. STREAM SYNC LOGIC ---
-        async function syncGlobalStream() {
-            if (!isListening) return; // Don't run until mobile user taps the button
-
-            try {
-                const res = await fetch(`${SUPABASE_URL}/rest/v1/live_station?select=*&order=id.desc&limit=1`, {
-                    headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` }
-                });
-                const data = await res.json();
-                
-                if (data && data.length > 0) {
-                    const latestTrack = data[0];
-                    
-                    if (currentActiveUrl !== latestTrack.current_track_u) {
-                        currentActiveUrl = latestTrack.current_track_u;
-                        trackNameDisplay.textContent = latestTrack.track_name;
-                        playingAnimation.classList.remove('hidden');
-                        
-                        const element = document.createElement(latestTrack.media_type === 'video' ? 'video' : 'audio');
-                        element.src = latestTrack.current_track_u;
-                        element.controls = true;
-                        element.setAttribute('playsinline', 'true'); // Required for iOS Video
-                        
-                        playerRoot.innerHTML = '';
-                        playerRoot.appendChild(element);
-                        
-                        // Mobile will now allow this because the user already tapped the Tune In button!
-                        element.play().catch(e => console.log("Buffering..."));
-                    }
-                }
-            } catch (err) { console.error(err); }
+        // Calculate dynamic greeting based on time of day
+        function setGreeting() {
+            const hour = new Date().getHours();
+            let greeting = "Good Evening";
+            if (hour >= 5 && hour < 12) greeting = "Good Morning";
+            else if (hour >= 12 && hour < 17) greeting = "Good Afternoon";
+            document.getElementById("dynamic-greeting").innerText = greeting;
         }
 
-        // --- 3. GLOBAL CHAT / REQUESTS LOGIC ---
-        document.getElementById('submitSuggestBtn').addEventListener('click', async () => {
-            const val = document.getElementById('userSuggestion').value.trim();
-            if(!val) return;
+        // Triggered when user enters
+        function tuneIn() {
+            const nameInput = document.getElementById("listener-name").value.trim();
+            if (nameInput === "") {
+                alert("Please enter a name to join the station!");
+                return;
+            }
 
-            // Send to Supabase 'requests' table
-            await fetch(`${SUPABASE_URL}/rest/v1/requests`, {
-                method: 'POST',
-                headers: { "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY, "Content-Type": "application/json" },
-                body: JSON.stringify({ message: val })
-            });
-            
-            document.getElementById('userSuggestion').value = '';
-            document.getElementById('successMsg').classList.remove('hidden');
-            setTimeout(() => document.getElementById('successMsg').classList.add('hidden'), 3000);
-        });
+            currentUser = nameInput;
+            document.getElementById("display-name").innerText = currentUser;
+            setGreeting();
 
-        // --- 4. ADMIN PANEL CHAT INBOX LOGIC ---
-        async function fetchAdminInbox() {
-            try {
-                const res = await fetch(`${SUPABASE_URL}/rest/v1/requests?select=*&order=id.desc&limit=20`, {
-                    headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` }
-                });
-                const data = await res.json();
-                
-                if (data && data.length > 0) {
-                    const inbox = document.getElementById('adminInbox');
-                    inbox.innerHTML = '';
-                    data.forEach(req => {
-                        inbox.innerHTML += `<div class="chat-msg">💬 ${req.message}</div>`;
-                    });
-                }
-            } catch(e) {}
+            // Transition UI
+            document.getElementById("entry-popup").style.display = "none";
+            document.getElementById("main-app").classList.remove("hidden");
+
+            // Play Music
+            const audio = document.getElementById("station-audio");
+            audio.volume = 0.5;
+            audio.play().catch(e => console.log("Waiting for audio source:", e));
         }
 
-        // --- 5. ADMIN UPLOAD LOGIC ---
-        document.getElementById('loginBtn').addEventListener('click', () => {
-            if (document.getElementById('adminPassInput').value.trim() === "0135") {
-                document.getElementById('adminLoginGate').classList.add('hidden');
-                document.getElementById('bawanControlPanel').classList.remove('hidden');
-                fetchAdminInbox(); // Load messages when admin logs in
-                setInterval(fetchAdminInbox, 5000); // Check for new messages every 5 seconds
+        // Handle Admin Login
+        function loginAdmin() {
+            const pass = document.getElementById("admin-password").value;
+            if (pass === "secret123") { // Your actual password
+                isAdmin = true;
+                currentUser = "Studio Host"; 
+                document.getElementById("admin-login").classList.add("hidden");
+                document.getElementById("admin-controls").classList.remove("hidden");
+                
+                // Optional: Auto-send a system message when admin logs in
+                addMessageToChat("System", "Studio Host has connected.", true);
             } else {
-                document.getElementById('loginError').classList.remove('hidden');
+                alert("Access Denied. Incorrect password.");
+            }
+        }
+
+        // Chat functionality
+        function sendChatMessage() {
+            const input = document.getElementById("chat-input");
+            const text = input.value.trim();
+            if (text === "") return;
+
+            addMessageToChat(currentUser, text, false);
+            input.value = ""; // clear input
+        }
+
+        // Helper function to build chat messages
+        function addMessageToChat(senderName, messageText, isSystemMsg) {
+            const chatBox = document.getElementById("chat-box");
+            const msgDiv = document.createElement("div");
+            msgDiv.classList.add("message");
+
+            if (isSystemMsg) {
+                 msgDiv.innerHTML = `<span style="color: #aaa; font-style: italic;">${messageText}</span>`;
+            }
+            else if (isAdmin) {
+                msgDiv.classList.add("admin-msg");
+                msgDiv.innerHTML = `<span class="sender">${senderName} <span class="admin-badge">HOST</span></span>: ${messageText}`;
+            } else {
+                msgDiv.innerHTML = `<span class="sender">${senderName}</span>: ${messageText}`;
+            }
+
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Press 'Enter' to send messages
+        document.getElementById("chat-input").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendChatMessage();
             }
         });
-
-        document.getElementById('mediaUpload').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const uploadStatus = document.getElementById('uploadStatus');
-            uploadStatus.textContent = "Uploading to Cloud... Please wait.";
-            uploadStatus.classList.remove('hidden');
-
-            const uniqueName = Date.now() + "_" + file.name.replace(/\s+/g, '_');
-            const uploadUrl = `${SUPABASE_URL}/storage/v1/object/radio/${uniqueName}`;
-
-            try {
-                const storageRes = await fetch(uploadUrl, {
-                    method: 'POST',
-                    headers: { "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY, "Content-Type": file.type },
-                    body: file
-                });
-
-                if (storageRes.ok) {
-                    const publicFileUrl = `${SUPABASE_URL}/storage/v1/object/public/radio/${uniqueName}`;
-                    const trackType = file.type.startsWith('video') ? 'video' : 'audio';
-
-                    await fetch(`${SUPABASE_URL}/rest/v1/live_station`, {
-                        method: 'POST',
-                        headers: { "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY, "Content-Type": "application/json" },
-                        body: JSON.stringify({ current_track_u: publicFileUrl, track_name: file.name, media_type: trackType })
-                    });
-
-                    uploadStatus.textContent = "✓ Live stream updated globally!";
-                    uploadStatus.style.color = "#10b981";
-                    syncGlobalStream();
-                }
-            } catch (err) { uploadStatus.textContent = "Upload failed."; }
+        
+        // Press 'Enter' to login admin
+        document.getElementById("admin-password").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                loginAdmin();
+            }
         });
-
-        // Check for new songs every 4 seconds
-        setInterval(syncGlobalStream, 4000);
+        
+        // Press 'Enter' on popup
+        document.getElementById("listener-name").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                tuneIn();
+            }
+        });
     </script>
 </body>
 </html>
