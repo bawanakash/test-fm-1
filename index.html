@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bawan's Premium Live Station</title>
+    <title>Bawan's Global Live Station</title>
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --bg-color: #050b14;
+            --card-bg: rgba(17, 25, 40, 0.75);
             --accent-glow: #3b82f6;
             --accent-neon: #00f2fe;
             --text-main: #f8fafc;
             --text-dim: #94a3b8;
         }
+        
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background: radial-gradient(circle at top right, #1e1b4b, #0f172a), var(--bg-color);
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #050b14 100%);
             color: var(--text-main);
             margin: 0;
             padding: 15px;
@@ -24,164 +27,148 @@
             align-items: center;
             min-height: 100vh;
         }
+
+        /* Sleek Glassmorphism App Container */
         .container {
             width: 100%;
-            max-width: 480px;
+            max-width: 450px;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             padding: 25px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 0 0 15px rgba(59, 130, 246, 0.1);
-            margin-bottom: 25px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            margin-bottom: 20px;
             text-align: center;
         }
+        
         h1 {
-            font-size: 26px;
-            font-weight: 800;
-            margin-top: 0;
+            font-size: 24px;
+            font-weight: 900;
+            margin: 0 0 5px 0;
             background: linear-gradient(to right, #fff, var(--accent-neon));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -0.5px;
         }
-        h3 { margin-top: 0; color: #fff; font-weight: 600; font-size: 16px; }
         
+        p.subtitle { color: var(--accent-glow); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 20px 0; }
+        h3 { margin: 0 0 12px 0; color: #fff; font-weight: 600; font-size: 15px; text-align: left;}
+        
+        /* Premium Player Box */
         .media-box {
-            background: rgba(15, 23, 42, 0.8);
-            padding: 15px;
-            border-radius: 16px;
-            margin: 20px 0;
-            min-height: 120px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 18px;
+            margin: 15px 0;
+            min-height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            border: 1px solid rgba(0, 242, 254, 0.2);
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+            border: 1px solid rgba(0, 242, 254, 0.1);
             position: relative;
-            overflow: hidden;
-            width: 100%;
-            box-sizing: border-box;
         }
+
         audio, video { 
             width: 100%; 
-            max-height: 260px; 
-            border-radius: 10px; 
-            margin-top: 10px;
+            max-height: 220px; 
+            border-radius: 12px; 
+            margin-top: 15px;
             outline: none;
-            display: block;
         }
         
+        /* Modern Inputs */
         input[type="text"], input[type="password"], textarea {
             width: 100%;
-            padding: 12px 16px;
-            margin: 10px 0;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(15, 23, 42, 0.6);
+            padding: 14px;
+            margin: 8px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.3);
             color: #fff;
-            box-sizing: border-box;
-            font-size: 14px;
-            transition: all 0.2s ease;
+            font-size: 15px;
+            transition: all 0.3s ease;
         }
-        input:focus, textarea:focus {
-            border-color: var(--accent-neon);
-            outline: none;
-            background: rgba(15, 23, 42, 0.9);
-            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
-        }
+
+        input:focus, textarea:focus { border-color: var(--accent-neon); outline: none; background: rgba(0, 0, 0, 0.5); }
         
+        /* High-Converting Buttons */
         button {
             width: 100%;
-            padding: 14px;
-            margin: 12px 0 4px 0;
-            border-radius: 10px;
-            font-weight: 700;
+            padding: 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+            font-weight: 800;
             font-size: 15px;
             cursor: pointer;
             border: none;
-            color: #fff;
-            background: linear-gradient(135deg, #2563eb, #00f2fe);
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        button:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.1);
+            color: #050b14;
+            background: linear-gradient(135deg, var(--accent-neon), var(--accent-glow));
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .queue-container {
-            text-align: left;
-            margin-top: 15px;
-            font-size: 13px;
-            background: rgba(0,0,0,0.2);
-            padding: 12px;
-            border-radius: 8px;
-            border-left: 3px solid var(--accent-glow);
-        }
+        button:active { transform: scale(0.97); }
 
-        .admin-section {
-            border-top: 1px dashed rgba(255, 255, 255, 0.15);
-            margin-top: 30px;
-            padding-top: 25px;
-            width: 100%;
-            max-width: 480px;
-        }
-        .hidden { display: none; }
-        .loading { color: #f59e0b; font-weight: bold; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 50% { opacity: 0.4; } }
+        /* Custom Mobile Tune-In Button */
+        #tuneInBtn { background: #10b981; color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+
+        .admin-section { border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 20px; padding-top: 20px; width: 100%; max-width: 450px; }
+        .hidden { display: none !important; }
+        .success-text { color: #10b981; font-size: 13px; font-weight: 600; }
+        
+        /* Chat Box styling */
+        .chat-box { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; height: 150px; overflow-y: auto; text-align: left; font-size: 14px; border: 1px solid rgba(255,255,255,0.05); }
+        .chat-msg { border-bottom: 1px solid rgba(255,255,255,0.05); padding: 8px 0; color: #e2e8f0; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>📻 BAWAN'S LIVE STATION</h1>
-        <p style="color: var(--text-dim); font-size: 14px; margin-top: -5px;">Continuous High-Fidelity Smart Stream</p>
+        <h1>📻 BAWAN'S STATION</h1>
+        <p class="subtitle">Global Live Broadcast</p>
 
-        <div class="media-box" id="mediaContainer">
-            <p id="trackNameDisplay" style="font-weight: 600; color: var(--accent-neon); margin: 0 0 5px 0; font-size: 14px; word-break: break-all;"></p>
-            <div id="playerRoot" style="width: 100%;">
-                <p style="color: var(--text-dim);">Connecting to streaming channel...</p>
-            </div>
+        <button id="tuneInBtn">🎧 Tap Here to Tune In</button>
+
+        <div class="media-box hidden" id="mediaContainer">
+            <div id="playingAnimation" class="hidden" style="color: var(--accent-neon); font-size: 24px; margin-bottom: 10px;">ılıılıılı</div>
+            <p id="trackNameDisplay" style="font-weight: 700; color: #fff; margin: 0; font-size: 15px; word-break: break-all;">Waiting for stream...</p>
+            <div id="playerRoot" style="width: 100%;"></div>
         </div>
 
-        <div id="queueDisplay" class="queue-container hidden">
-            <strong style="color: #fff;">Up Next in Queue:</strong>
-            <div id="queueList" style="color: var(--text-dim); margin-top: 5px;"></div>
-        </div>
-
-        <div style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 15px;">
-            <h3>Send a Request</h3>
-            <textarea id="userSuggestion" placeholder="Type a track suggestion or say hello to Bawan..." rows="2"></textarea>
-            <button id="submitSuggestBtn">Submit To Station</button>
-            <p id="successMsg" style="color: #10b981; font-size: 13px; margin-top: 8px;" class="hidden">✓ Suggestion beamed up successfully!</p>
+        <div style="margin-top: 25px; text-align: left;">
+            <h3>Send a Request / Say Hi</h3>
+            <textarea id="userSuggestion" placeholder="Type a message..." rows="2"></textarea>
+            <button id="submitSuggestBtn" type="button" style="background: rgba(255,255,255,0.1); color: #fff; box-shadow: none;">Send Message 🚀</button>
+            <p id="successMsg" class="success-text hidden">✓ Message sent to studio!</p>
         </div>
     </div>
 
     <div class="admin-section">
-        <div id="adminLoginGate" class="container" style="background: rgba(15, 23, 42, 0.45); border-color: rgba(255,255,255,0.05);">
-            <h3>Station Control Log In</h3>
-            <input type="text" id="adminNameInput" placeholder="Admin Username" autocomplete="off">
-            <input type="password" id="adminPassInput" placeholder="Access Password">
-            <button id="loginBtn" style="background: linear-gradient(135deg, #475569, #334155); box-shadow: none;">Verify Credentials</button>
-            <p id="loginError" style="color: #ef4444; font-size: 13px;" class="hidden">❌ Authorization Declined.</p>
+        <div id="adminLoginGate" class="container" style="background: rgba(0,0,0,0.4); border:none;">
+            <h3 style="text-align: center;">Studio Access</h3>
+            <input type="password" id="adminPassInput" placeholder="Enter Password (0135)">
+            <button id="loginBtn" type="button" style="background: #334155; color: white; box-shadow:none;">Login</button>
         </div>
 
-        <div id="bawanControlPanel" class="container hidden" style="border: 1px solid var(--accent-glow); background: rgba(15, 23, 42, 0.85);">
-            <h2 style="margin-top:0; color:#fff; font-size:20px;">👑 Studio Console</h2>
+        <div id="bawanControlPanel" class="container hidden" style="border: 1px solid var(--accent-glow);">
+            <h2 style="margin-top:0; color:#fff; font-size:20px; text-align: center;">👑 Studio Console</h2>
             
-            <div style="text-align: left; margin-top: 15px;">
-                <label style="font-size:14px; font-weight:600; color: var(--text-dim);">Queue Next Song or Video Track:</label>
-                <input type="file" id="mediaUpload" accept="audio/*, video/*" style="margin-top:8px; color: #fff; width: 100%;">
-                <p id="uploadStatus" class="hidden" style="font-size:13px; margin: 8px 0 0 0;"></p>
+            <div style="text-align: left; margin-top: 20px;">
+                <label style="font-size:13px; font-weight:700; color: var(--accent-neon); text-transform: uppercase;">Broadcast New Track:</label>
+                <input type="file" id="mediaUpload" accept="audio/*, video/*" style="padding: 10px; margin-top:8px;">
+                <p id="uploadStatus" class="hidden" style="font-size:13px; margin: 8px 0 0 0; color: #f59e0b; font-weight:bold;"></p>
             </div>
 
-            <div style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
-                <h3 style="font-size:16px;">Live Feedback Inbox</h3>
-                <div id="suggestionDisplay" style="text-align: left; background: rgba(0,0,0,0.3); padding: 12px; border-radius: 10px; max-height: 140px; overflow-y: auto; font-size:13px;">
-                    <p style="color: var(--text-dim); text-align: center; margin:0;">Inbox empty.</p>
+            <div style="margin-top: 25px;">
+                <label style="font-size:13px; font-weight:700; color: var(--text-dim); text-transform: uppercase;">Live Listener Inbox:</label>
+                <div id="adminInbox" class="chat-box" style="margin-top: 8px;">
+                    <p style="color: var(--text-dim); text-align:center;">No messages yet.</p>
                 </div>
             </div>
         </div>
@@ -191,194 +178,140 @@
         const SUPABASE_URL = "https://nwyvennvjugzsdamqrug.supabase.co"; 
         const SUPABASE_KEY = "sb_publishable_qHQLQ1YPmDwweggO0mWNPw_piFdvS8R";
 
+        const tuneInBtn = document.getElementById('tuneInBtn');
+        const mediaContainer = document.getElementById('mediaContainer');
         const playerRoot = document.getElementById('playerRoot');
         const trackNameDisplay = document.getElementById('trackNameDisplay');
-        const queueDisplay = document.getElementById('queueDisplay');
-        const queueList = document.getElementById('queueList');
-        const userSuggestion = document.getElementById('userSuggestion');
-        const submitSuggestBtn = document.getElementById('submitSuggestBtn');
-        const successMsg = document.getElementById('successMsg');
+        const playingAnimation = document.getElementById('playingAnimation');
         
-        const adminLoginGate = document.getElementById('adminLoginGate');
-        const adminNameInput = document.getElementById('adminNameInput');
-        const adminPassInput = document.getElementById('adminPassInput');
-        const loginBtn = document.getElementById('loginBtn');
-        const loginError = document.getElementById('loginError');
-        const bawanControlPanel = document.getElementById('bawanControlPanel');
-        
-        const mediaUpload = document.getElementById('mediaUpload');
-        const uploadStatus = document.getElementById('uploadStatus');
-        const suggestionDisplay = document.getElementById('suggestionDisplay');
+        let currentActiveUrl = "";
+        let isListening = false; // Prevents mobile from fetching until user taps play
 
-        let state = {
-            currentTrackUrl: "",
-            trackName: "",
-            type: "audio",
-            playlistQueue: [],
-            suggestions: []
-        };
+        // --- 1. MOBILE TUNE IN LOGIC ---
+        tuneInBtn.addEventListener('click', () => {
+            isListening = true;
+            tuneInBtn.classList.add('hidden');
+            mediaContainer.classList.remove('hidden');
+            syncGlobalStream(); // Start fetching the song immediately
+        });
 
-        function loadEngineState() {
-            const cache = localStorage.getItem('bawan_stable_stream_state');
-            if (cache) {
-                state = JSON.parse(cache);
-            }
-            renderLivePlayer();
-            updateQueueUI();
-            renderSuggestionsList();
-        }
+        // --- 2. STREAM SYNC LOGIC ---
+        async function syncGlobalStream() {
+            if (!isListening) return; // Don't run until mobile user taps the button
 
-        function saveEngineState() {
-            localStorage.setItem('bawan_stable_stream_state', JSON.stringify(state));
-            updateQueueUI();
-        }
-
-        function renderLivePlayer() {
-            if (!state.currentTrackUrl) {
-                playerRoot.innerHTML = `<p style="color: var(--text-dim); font-size:13px;">Ready. Upload a track to start the stream.</p>`;
-                trackNameDisplay.textContent = "";
-                return;
-            }
-            
-            trackNameDisplay.innerHTML = `🎵 <span style="color:#fff;">Playing Now:</span> ${state.trackName}`;
-            
-            let activePlayer = playerRoot.querySelector('audio, video');
-            if (activePlayer && activePlayer.src === state.currentTrackUrl) return;
-
-            const mediaElement = document.createElement(state.type === 'video' ? 'video' : 'audio');
-            mediaElement.src = state.currentTrackUrl;
-            mediaElement.controls = true;
-            mediaElement.autoplay = true;
-            mediaElement.setAttribute('playsinline', 'true');
-            mediaElement.setAttribute('webkit-playsinline', 'true');
-            
-            mediaElement.onended = function() {
-                handleTrackFinished();
-            };
-            
-            playerRoot.innerHTML = '';
-            playerRoot.appendChild(mediaElement);
-        }
-
-        function handleTrackFinished() {
-            if (state.playlistQueue && state.playlistQueue.length > 0) {
-                const nextTrack = state.playlistQueue.shift();
-                state.currentTrackUrl = nextTrack.url;
-                state.trackName = nextTrack.name;
-                state.type = nextTrack.type;
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/live_station?select=*&order=id.desc&limit=1`, {
+                    headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` }
+                });
+                const data = await res.json();
                 
-                saveEngineState();
-                renderLivePlayer();
-            } else {
-                state.currentTrackUrl = "";
-                state.trackName = "";
-                saveEngineState();
-                renderLivePlayer();
-            }
+                if (data && data.length > 0) {
+                    const latestTrack = data[0];
+                    
+                    if (currentActiveUrl !== latestTrack.current_track_u) {
+                        currentActiveUrl = latestTrack.current_track_u;
+                        trackNameDisplay.textContent = latestTrack.track_name;
+                        playingAnimation.classList.remove('hidden');
+                        
+                        const element = document.createElement(latestTrack.media_type === 'video' ? 'video' : 'audio');
+                        element.src = latestTrack.current_track_u;
+                        element.controls = true;
+                        element.setAttribute('playsinline', 'true'); // Required for iOS Video
+                        
+                        playerRoot.innerHTML = '';
+                        playerRoot.appendChild(element);
+                        
+                        // Mobile will now allow this because the user already tapped the Tune In button!
+                        element.play().catch(e => console.log("Buffering..."));
+                    }
+                }
+            } catch (err) { console.error(err); }
         }
 
-        function updateQueueUI() {
-            if (!state.playlistQueue || state.playlistQueue.length === 0) {
-                queueDisplay.classList.add('hidden');
-                return;
-            }
-            queueDisplay.classList.remove('hidden');
-            queueList.innerHTML = state.playlistQueue.map((item, idx) => `<div>${idx + 1}. ${item.name}</div>`).join('');
+        // --- 3. GLOBAL CHAT / REQUESTS LOGIC ---
+        document.getElementById('submitSuggestBtn').addEventListener('click', async () => {
+            const val = document.getElementById('userSuggestion').value.trim();
+            if(!val) return;
+
+            // Send to Supabase 'requests' table
+            await fetch(`${SUPABASE_URL}/rest/v1/requests`, {
+                method: 'POST',
+                headers: { "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY, "Content-Type": "application/json" },
+                body: JSON.stringify({ message: val })
+            });
+            
+            document.getElementById('userSuggestion').value = '';
+            document.getElementById('successMsg').classList.remove('hidden');
+            setTimeout(() => document.getElementById('successMsg').classList.add('hidden'), 3000);
+        });
+
+        // --- 4. ADMIN PANEL CHAT INBOX LOGIC ---
+        async function fetchAdminInbox() {
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/requests?select=*&order=id.desc&limit=20`, {
+                    headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` }
+                });
+                const data = await res.json();
+                
+                if (data && data.length > 0) {
+                    const inbox = document.getElementById('adminInbox');
+                    inbox.innerHTML = '';
+                    data.forEach(req => {
+                        inbox.innerHTML += `<div class="chat-msg">💬 ${req.message}</div>`;
+                    });
+                }
+            } catch(e) {}
         }
 
-        loginBtn.addEventListener('click', () => {
-            if (adminNameInput.value.trim().toLowerCase() === "bawan" && adminPassInput.value.trim() === "0135") {
-                adminLoginGate.classList.add('hidden');
-                bawanControlPanel.classList.remove('hidden');
+        // --- 5. ADMIN UPLOAD LOGIC ---
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            if (document.getElementById('adminPassInput').value.trim() === "0135") {
+                document.getElementById('adminLoginGate').classList.add('hidden');
+                document.getElementById('bawanControlPanel').classList.remove('hidden');
+                fetchAdminInbox(); // Load messages when admin logs in
+                setInterval(fetchAdminInbox, 5000); // Check for new messages every 5 seconds
             } else {
-                loginError.classList.remove('hidden');
+                document.getElementById('loginError').classList.remove('hidden');
             }
         });
 
-        mediaUpload.addEventListener('change', async (e) => {
+        document.getElementById('mediaUpload').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
 
-            uploadStatus.className = "loading";
-            uploadStatus.style.color = "#f59e0b";
-            uploadStatus.textContent = "Processing & Syncing to Cloud Storage...";
+            const uploadStatus = document.getElementById('uploadStatus');
+            uploadStatus.textContent = "Uploading to Cloud... Please wait.";
             uploadStatus.classList.remove('hidden');
 
             const uniqueName = Date.now() + "_" + file.name.replace(/\s+/g, '_');
             const uploadUrl = `${SUPABASE_URL}/storage/v1/object/radio/${uniqueName}`;
 
             try {
-                const res = await fetch(uploadUrl, {
+                const storageRes = await fetch(uploadUrl, {
                     method: 'POST',
-                    headers: {
-                        "Authorization": `Bearer ${SUPABASE_KEY}`,
-                        "apikey": SUPABASE_KEY,
-                        "Content-Type": file.type
-                    },
+                    headers: { "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY, "Content-Type": file.type },
                     body: file
                 });
 
-                if (res.ok) {
+                if (storageRes.ok) {
                     const publicFileUrl = `${SUPABASE_URL}/storage/v1/object/public/radio/${uniqueName}`;
                     const trackType = file.type.startsWith('video') ? 'video' : 'audio';
 
-                    if (!state.currentTrackUrl) {
-                        state.currentTrackUrl = publicFileUrl;
-                        state.trackName = file.name;
-                        state.type = trackType;
-                    } else {
-                        if(!state.playlistQueue) state.playlistQueue = [];
-                        state.playlistQueue.push({
-                            url: publicFileUrl,
-                            name: file.name,
-                            type: trackType
-                        });
-                    }
+                    await fetch(`${SUPABASE_URL}/rest/v1/live_station`, {
+                        method: 'POST',
+                        headers: { "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY, "Content-Type": "application/json" },
+                        body: JSON.stringify({ current_track_u: publicFileUrl, track_name: file.name, media_type: trackType })
+                    });
 
-                    saveEngineState();
-                    uploadStatus.className = "";
+                    uploadStatus.textContent = "✓ Live stream updated globally!";
                     uploadStatus.style.color = "#10b981";
-                    uploadStatus.textContent = "✓ Track Synced Successfully!";
-                    renderLivePlayer();
-                    mediaUpload.value = ""; 
-                } else {
-                    throw new Error("Rejected");
+                    syncGlobalStream();
                 }
-            } catch (err) {
-                uploadStatus.textContent = "Upload failed. Verify folder is named 'radio'.";
-                uploadStatus.style.color = "#ef4444";
-            }
+            } catch (err) { uploadStatus.textContent = "Upload failed."; }
         });
 
-        submitSuggestBtn.addEventListener('click', () => {
-            const val = userSuggestion.value.trim();
-            if(!val) return;
-
-            if(!state.suggestions) state.suggestions = [];
-            state.suggestions.push(val);
-            userSuggestion.value = '';
-            
-            saveEngineState();
-            successMsg.classList.remove('hidden');
-            setTimeout(() => successMsg.classList.add('hidden'), 3000);
-            renderSuggestionsList();
-        });
-
-        function renderSuggestionsList() {
-            if(!state.suggestions || state.suggestions.length === 0) return;
-            suggestionDisplay.innerHTML = '';
-            state.suggestions.forEach(s => {
-                const p = document.createElement('p');
-                p.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
-                p.style.padding = "6px 0";
-                p.style.margin = "0";
-                p.style.color = "#cbd5e1";
-                p.textContent = `⚡ ${s}`;
-                suggestionDisplay.appendChild(p);
-            });
-        }
-
-        loadEngineState();
+        // Check for new songs every 4 seconds
+        setInterval(syncGlobalStream, 4000);
     </script>
 </body>
 </html>
