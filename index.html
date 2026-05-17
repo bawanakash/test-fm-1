@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bawan's Global Live Station</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(30, 41, 59, 0.75);
+            --accent-glow: #3b82f6;
+            --accent-neon: #00f2fe;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+        
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a), var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 15px rgba(59, 130, 246, 0.05);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0 0 4px 0;
+            background: linear-gradient(to right, #fff, var(--accent-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        p.subtitle {
+            color: var(--text-dim); 
+            font-size: 13px; 
+            margin: 0 0 15px 0;
+        }
+
+        h3 { margin: 0 0 12px 0; color: #fff; font-weight: 600; font-size: 16px; }
+        
+        .media-box {
+            background: rgba(15, 23, 42, 0.85);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 1px solid rgba(0, 242, 254, 0.15);
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.4);
+            width: 100%;
+        }
+
+        audio, video { 
+            width: 100%; 
+            max-height: 220px; 
+            border-radius: 8px; 
+            margin-top: 5px;
+            outline: none;
+            display: block;
+        }
+        
+        input[type="text"], input[type="password"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.6);
+            color: #fff;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--accent-neon);
+            outline: none;
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 8px rgba(0, 242, 254, 0.2);
+        }
+        
+        button {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0 4px 0;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            border: none;
+            color: #fff;
+            background: linear-gradient(135deg, #2563eb, #00f2fe);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        button:active {
+            transform: scale(0.98);
+            filter: brightness(0.9);
+        }
+
+        .admin-section {
+            border-top: 1px dashed rgba(255, 255, 255, 0.12);
+            margin-top: 25px;
+            padding-top: 20px;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .hidden { display: none !important; }
+        .loading { color: #f59e0b; font-weight: bold; animation: pulse 1.5s infinite; font-size: 13px; }
+        @keyframes pulse { 50% { opacity: 0.4; } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>📻 BAWAN'S LIVE STATION</h1>
+        <p class="subtitle">Synced Live Stream Broadcasting Everywhere</p>
+
+        <div class="media-box" id="mediaContainer">
+            <p id="trackNameDisplay" style="font-weight: 600; color: var(--accent-neon); margin: 0 0 5px 0; font-size: 14px; word-break: break-all;"></p>
+            <div id="playerRoot" style="width: 100%;">
+                <p style="color: var(--text-dim); font-size: 13px;">Connecting to global server stream...</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 15px;">
+            <h3>Send a Request</h3>
+            <textarea id="userSuggestion" placeholder="Type a track suggestion or message for Bawan..." rows="2"></textarea>
+            <button id="submitSuggestBtn" type="button">Submit To Station</button>
+            <p id="successMsg" style="color: #10b981; font-size: 13px; margin-top: 8px;" class="hidden">✓ Suggestion submitted successfully!</p>
+        </div>
+    </div>
+
+    <div class="admin-section">
+        <div id="adminLoginGate" class="container" style="background: rgba(15, 23, 42, 0.4); border-color: rgba(255,255,255,0.03);">
+            <h3>Studio Console Login</h3>
+            <input type="text" id="adminNameInput" placeholder="Admin Username" autocomplete="off">
+            <input type="password" id="adminPassInput" placeholder="Access Password">
+            <button id="loginBtn" type="button" style="background: linear-gradient(135deg, #475569, #334155); box-shadow: none;">Verify Credentials</button>
+            <p id="loginError" style="color: #ef4444; font-size: 13px;" class="hidden">❌ Authorization Declined.</p>
+        </div>
+
+        <div id="bawanControlPanel" class="container hidden" style="border: 1px solid var(--accent-glow); background: rgba(15, 23, 42, 0.9);">
+            <h2 style="margin-top:0; color:#fff; font-size:18px;">👑 Studio Console</h2>
+            
+            <div style="text-align: left; margin-top: 10px;">
+                <label style="font-size:13px; font-weight:600; color: var(--text-dim);">Broadcast New Track (Audio/Video):</label>
+                <input type="file" id="mediaUpload" accept="audio/*, video/*" style="margin-top:8px; color: #fff; width: 100%;">
+                <p id="uploadStatus" class="hidden" style="font-size:13px; margin: 8px 0 0 0;"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://nwyvennvjugzsdamqrug.supabase.co"; 
+        const SUPABASE_KEY = "sb_publishable_qHQLQ1YPmDwweggO0mWNPw_piFdvS8R";
+
+        const playerRoot = document.getElementById('playerRoot');
+        const trackNameDisplay = document.getElementById('trackNameDisplay');
+        const userSuggestion = document.getElementById('userSuggestion');
+        const submitSuggestBtn = document.getElementById('submitSuggestBtn');
+        const successMsg = document.getElementById('successMsg');
+        
+        const adminLoginGate = document.getElementById('adminLoginGate');
+        const adminNameInput = document.getElementById('adminNameInput');
+        const adminPassInput = document.getElementById('adminPassInput');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginError = document.getElementById('loginError');
+        const bawanControlPanel = document.getElementById('bawanControlPanel');
+        
+        const mediaUpload = document.getElementById('mediaUpload');
+        const uploadStatus = document.getElementById('uploadStatus');
+
+        let currentActiveUrl = "";
+
+        // Core Real-Time Synchronization Engine
+        async function syncGlobalStream() {
+            try {
+                // Queries your live_station table configuration directly
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/live_station?select=*&order=id.desc&limit=1`, {
+                    headers: { 
+                        "apikey": SUPABASE_KEY, 
+                        "Authorization": `Bearer ${SUPABASE_KEY}`
+                    }
+                });
+                const data = await res.json();
+                
+                if (data && data.length > 0) {
+                    const latestTrack = data[0];
+                    
+                    // FIXED: Uses 'current_track_u' matching your exact schema layout string configuration
+                    if (!latestTrack.current_track_u) {
+                        playerRoot.innerHTML = `<p style="color: var(--text-dim); font-size: 13px;">Studio Offline. Waiting for a live track...</p>`;
+                        trackNameDisplay.textContent = "";
+                        currentActiveUrl = "";
+                        return;
+                    }
+
+                    // Checks if database entry URL switches to trigger active cross-device track playback swaps
+                    if (currentActiveUrl !== latestTrack.current_track_u) {
+                        currentActiveUrl = latestTrack.current_track_u;
+                        trackNameDisplay.innerHTML = `🎵 <span style="color:#fff;">Playing Now:</span> ${latestTrack.track_name}`;
+                        
+                        const element = document.createElement(latestTrack.media_type === 'video' ? 'video' : 'audio');
+                        element.src = latestTrack.current_track_u;
+                        element.controls = true;
+                        
+                        // Mobile engines parameters overrides
+                        element.setAttribute('playsinline', 'true');
+                        element.setAttribute('webkit-playsinline', 'true');
+                        element.preload = "auto";
+                        
+                        playerRoot.innerHTML = '';
+                        playerRoot.appendChild(element);
+                        
+                        element.play().catch(e => console.log("User interaction requirement intercept safe-block handled."));
+                    }
+                }
+            } catch (err) {
+                console.error("Global synchronization network lookup lag: ", err);
+            }
+        }
+
+        loginBtn.addEventListener('click', () => {
+            if (adminNameInput.value.trim().toLowerCase() === "bawan" && adminPassInput.value.trim() === "0135") {
+                adminLoginGate.classList.add('hidden');
+                bawanControlPanel.classList.remove('hidden');
+            } else {
+                loginError.classList.remove('hidden');
+            }
+        });
+
+        mediaUpload.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            uploadStatus.className = "loading";
+            uploadStatus.textContent = "Processing & Syncing to Cloud Storage...";
+            uploadStatus.classList.remove('hidden');
+
+            const uniqueName = Date.now() + "_" + file.name.replace(/\s+/g, '_');
+            const uploadUrl = `${SUPABASE_URL}/storage/v1/object/radio/${uniqueName}`;
+
+            try {
+                // 1. Drops physical audio/video block data target down into your public storage bucket location
+                const storageRes = await fetch(uploadUrl, {
+                    method: 'POST',
+                    headers: {
+                        "Authorization": `Bearer ${SUPABASE_KEY}`,
+                        "apikey": SUPABASE_KEY,
+                        "Content-Type": file.type
+                    },
+                    body: file
+                });
+
+                if (storageRes.ok) {
+                    const publicFileUrl = `${SUPABASE_URL}/storage/v1/object/public/radio/${uniqueName}`;
+                    const trackType = file.type.startsWith('video') ? 'video' : 'audio';
+
+                    // 2. Posts status pointers directly into table matching the exact column layout string target name
+                    await fetch(`${SUPABASE_URL}/rest/v1/live_station`, {
+                        method: 'POST',
+                        headers: {
+                            "Authorization": `Bearer ${SUPABASE_KEY}`,
+                            "apikey": SUPABASE_KEY,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            current_track_u: publicFileUrl,
+                            track_name: file.name,
+                            media_type: trackType
+                        })
+                    });
+
+                    uploadStatus.className = "";
+                    uploadStatus.style.color = "#10b981";
+                    uploadStatus.textContent = "✓ Broadcast Stream updated globally!";
+                    syncGlobalStream();
+                    mediaUpload.value = "";
+                }
+            } catch (err) {
+                uploadStatus.textContent = "Synchronization anomaly. Connection dropped.";
+                uploadStatus.style.color = "#ef4444";
+            }
+        });
+
+        // Feedback collector sequence engine fallback layer
+        submitSuggestBtn.addEventListener('click', () => {
+            const val = userSuggestion.value.trim();
+            if(!val) return;
+
+            let logs = [];
+            const existingLogs = localStorage.getItem('station_feedback_stream');
+            if(existingLogs) logs = JSON.parse(existingLogs);
+            
+            logs.push({ text: val, timestamp: Date.now() });
+            localStorage.setItem('station_feedback_stream', JSON.stringify(logs));
+            
+            userSuggestion.value = '';
+            successMsg.classList.remove('hidden');
+            setTimeout(() => successMsg.classList.add('hidden'), 3000);
+        });
+
+        // 3-second rapid global sync data checking loop channels
+        syncGlobalStream();
+        setInterval(syncGlobalStream, 3000);
+    </script>
+</body>
+</html>
