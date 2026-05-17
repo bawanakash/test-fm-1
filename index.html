@@ -4,213 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bawan's Global Live Station</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* --- CORE STYLING & HIGH-PERFORMANCE BACKGROUND --- */
+        /* --- ULTRA FAST STYLING --- */
         * { box-sizing: border-box; }
         
         body {
-            font-family: 'Poppins', sans-serif;
+            /* Uses the phone's native font - Zero download time */
+            font-family: system-ui, -apple-system, sans-serif;
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             color: #ffffff;
-            /* Static, high-performance gradient */
-            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            background-color: #0f172a; /* Solid dark color, instantly loads */
         }
 
-        /* --- OPTIMIZED GLASSMORPHISM PANELS --- */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.08); /* Slightly darker */
-            backdrop-filter: blur(8px); /* Lower blur for massive performance boost */
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Softer shadow */
-            transition: all 0.3s ease;
-        }
-
-        h2, h3 { margin-top: 0; font-weight: 600; letter-spacing: 1px; }
-        h2 { color: #00f2fe; text-shadow: 0 0 10px rgba(0, 242, 254, 0.5); }
-        h3 { color: #e0e0e0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
-
-        /* --- PREMIUM INPUTS & BUTTONS --- */
-        input {
-            width: 100%;
-            padding: 14px 20px;
-            margin: 15px 0;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .panel {
+            background: #1e293b;
+            border: 1px solid #334155;
             border-radius: 12px;
-            color: white;
-            font-family: 'Poppins', sans-serif;
-            font-size: 14px;
-            transition: all 0.3s ease;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
         }
 
-        input:focus {
-            outline: none;
-            border-color: #00f2fe;
-            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
-            background: rgba(0, 0, 0, 0.4);
+        h2, h3 { margin-top: 0; font-weight: 600; color: #38bdf8; }
+        h3 { border-bottom: 1px solid #334155; padding-bottom: 10px; }
+
+        input {
+            width: 100%; padding: 12px; margin: 10px 0;
+            background: #0f172a; border: 1px solid #334155;
+            border-radius: 8px; color: white; font-size: 16px;
         }
 
-        input::placeholder { color: rgba(255, 255, 255, 0.5); }
+        input:focus { outline: none; border-color: #38bdf8; }
 
         button {
-            width: 100%;
-            padding: 14px 20px;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: #000;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 16px;
+            width: 100%; padding: 14px; margin-top: 10px;
+            background: #0ea5e9; color: white; border: none;
+            border-radius: 8px; font-weight: bold; font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
-            font-family: 'Poppins', sans-serif;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.6);
-        }
+        button:active { background: #0284c7; }
+        button:disabled { background: #475569; cursor: not-allowed; }
 
-        button:active { transform: translateY(1px); }
-
-        /* --- POPUP SPECIFICS --- */
+        /* --- LAYOUT --- */
         #entry-popup {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
+            background: #0f172a; display: flex;
+            justify-content: center; align-items: center; z-index: 100;
         }
         
-        .popup-content { width: 350px; text-align: center; }
+        .popup-content { width: 90%; max-width: 350px; text-align: center; }
 
-        /* --- MAIN APP LAYOUT --- */
         #main-app {
-            display: none;
-            width: 95%; max-width: 1000px;
-            animation: fadeIn 0.8s ease forwards;
+            display: none; width: 95%; max-width: 900px;
         }
 
-        #greeting-bar {
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 24px;
-            font-weight: 300;
-            color: #a8c0ff;
-        }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
-        }
-
-        /* --- CHAT SPECIFICS & SCROLLBAR --- */
+        /* --- CHAT --- */
         #chat-box {
-            height: 350px;
-            overflow-y: auto;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255,255,255,0.05);
+            height: 300px; overflow-y: auto; background: #0f172a;
+            border-radius: 8px; padding: 15px; margin-bottom: 10px;
         }
-
-        /* Custom Scrollbar */
-        #chat-box::-webkit-scrollbar { width: 8px; }
-        #chat-box::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); border-radius: 10px; }
-        #chat-box::-webkit-scrollbar-thumb { background: rgba(0, 242, 254, 0.5); border-radius: 10px; }
-        #chat-box::-webkit-scrollbar-thumb:hover { background: rgba(0, 242, 254, 0.8); }
-
-        .message { margin-bottom: 15px; font-size: 14px; line-height: 1.4; animation: slideIn 0.3s ease; }
-        .message .sender { font-weight: 600; color: #4facfe; margin-right: 5px;}
-
-        /* Admin Message Decoration */
-        .message.admin-msg {
-            background: linear-gradient(90deg, rgba(255, 171, 0, 0.15) 0%, transparent 100%);
-            padding: 10px 15px;
-            border-radius: 8px;
-            border-left: 4px solid #ffab00;
-        }
-        .message.admin-msg .sender { color: #ffab00; }
-        .admin-badge {
-            background: #ffab00; color: #000; font-size: 10px; font-weight: bold;
-            padding: 2px 6px; border-radius: 12px; margin-left: 5px;
-            box-shadow: 0 0 8px rgba(255, 171, 0, 0.5);
-            letter-spacing: 1px;
-        }
-
-        /* --- UTILS --- */
-        .hidden { display: none !important; }
+        .message { margin-bottom: 12px; font-size: 14px; }
+        .message .sender { font-weight: bold; color: #38bdf8; }
+        .admin-msg { background: #451a03; padding: 8px; border-left: 4px solid #f59e0b; }
+        .admin-msg .sender { color: #f59e0b; }
+        .admin-badge { background: #f59e0b; color: #000; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 5px; }
         
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
-
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
     <div id="entry-popup">
-        <div class="glass-panel popup-content">
+        <div class="panel popup-content">
             <h2>Bawan Radio</h2>
-            <p style="color: #ccc; font-size: 14px;">Enter the studio to start listening</p>
-            <input type="text" id="listener-name" placeholder="Your Display Name..." required autocomplete="off">
-            <button onclick="tuneIn()">Tune In Live</button>
+            <p style="color: #94a3b8; font-size: 14px;">Enter your name to connect</p>
+            <input type="text" id="listener-name" placeholder="Display Name..." required>
+            <button id="tune-btn" onclick="tuneIn()">Tune In Live</button>
         </div>
     </div>
 
     <div id="main-app" class="hidden">
+        <h2 style="text-align: center; margin-bottom: 20px;">Welcome, <span id="display-name" style="color: white;"></span>!</h2>
         
-        <div id="greeting-bar">
-            <span id="dynamic-greeting">Welcome</span>, <span id="display-name" style="color: #fff; font-weight: 600;">Listener</span>!
-        </div>
-
-        <div class="dashboard-grid">
-            
-            <div class="glass-panel">
-                <h3>Live Studio Chat</h3>
+        <div class="grid">
+            <div class="panel">
+                <h3>Live Chat</h3>
                 <div id="chat-box"></div>
                 <div style="display: flex; gap: 10px;">
-                    <input type="text" id="chat-input" placeholder="Type your message..." autocomplete="off">
-                    <button onclick="sendChatMessage()" style="width: 100px;">Send</button>
+                    <input type="text" id="chat-input" placeholder="Message...">
+                    <button onclick="sendChatMessage()" style="width: 80px; margin: 10px 0;">Send</button>
                 </div>
             </div>
 
-            <div class="glass-panel">
-                <h3>Admin Console</h3>
-                
+            <div class="panel">
+                <h3>Studio Console</h3>
                 <div id="admin-login">
-                    <p style="color: #aaa; font-size: 13px; margin-bottom: 15px;">Authorized personnel only. Enter key to unlock broadcasting.</p>
-                    <input type="password" id="admin-password" placeholder="Studio Password">
-                    <button onclick="loginAdmin()" style="background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%); color: white; box-shadow: 0 4px 15px rgba(255, 65, 108, 0.4);">Unlock Console</button>
+                    <input type="password" id="admin-password" placeholder="Admin Key">
+                    <button onclick="loginAdmin()" style="background: #e11d48;">Unlock</button>
                 </div>
-                
-                <div id="admin-controls" class="hidden">
-                    <div style="text-align: center; padding: 20px 0;">
-                        <span style="font-size: 40px;">🎛️</span>
-                        <p style="color: #4facfe; font-weight: 600; font-size: 18px;">Console Unlocked</p>
-                        <p style="color: #ccc; font-size: 14px;">You are now chatting as the Host. Ready to broadcast.</p>
-                        </div>
+                <div id="admin-controls" class="hidden" style="text-align: center; padding-top: 20px;">
+                    <p style="color: #38bdf8; font-weight: bold;">Console Unlocked</p>
+                    <p style="color: #94a3b8; font-size: 14px;">Ready to broadcast.</p>
                 </div>
             </div>
-            
         </div>
     </div>
 
-    <audio id="station-audio" loop preload="none">
+    <audio id="station-audio" preload="none">
         <source src="YOUR_AUDIO_LINK_HERE.mp3" type="audio/mpeg">
     </audio>
 
@@ -218,103 +125,69 @@
         let currentUser = "";
         let isAdmin = false;
 
-        // Calculate dynamic greeting based on time of day
-        function setGreeting() {
-            const hour = new Date().getHours();
-            let greeting = "Good Evening";
-            if (hour >= 5 && hour < 12) greeting = "Good Morning";
-            else if (hour >= 12 && hour < 17) greeting = "Good Afternoon";
-            document.getElementById("dynamic-greeting").innerText = greeting;
-        }
-
-        // Triggered when user enters
         function tuneIn() {
             const nameInput = document.getElementById("listener-name").value.trim();
             if (nameInput === "") {
-                alert("Please enter a name to join the station!");
-                return;
+                alert("Please enter a name!"); return;
             }
+
+            // 1. Change button to show it is loading
+            const btn = document.getElementById("tune-btn");
+            btn.innerText = "Connecting to Studio...";
+            btn.disabled = true;
 
             currentUser = nameInput;
             document.getElementById("display-name").innerText = currentUser;
-            setGreeting();
 
-            // Transition UI
-            document.getElementById("entry-popup").style.display = "none";
-            document.getElementById("main-app").classList.remove("hidden");
-
-            // Play Music
+            // 2. Try to play audio
             const audio = document.getElementById("station-audio");
             audio.volume = 0.5;
-            audio.play().catch(e => console.log("Waiting for audio source:", e));
+            
+            // Use a Promise to wait for the audio to actually start fetching
+            audio.play().then(() => {
+                // Once audio starts, switch the screens
+                document.getElementById("entry-popup").style.display = "none";
+                document.getElementById("main-app").classList.remove("hidden");
+            }).catch(e => {
+                console.log("Audio load error/delay:", e);
+                // If it fails (or is just slow), force the screen to switch anyway so the user isn't stuck
+                document.getElementById("entry-popup").style.display = "none";
+                document.getElementById("main-app").classList.remove("hidden");
+            });
         }
 
-        // Handle Admin Login
         function loginAdmin() {
             const pass = document.getElementById("admin-password").value;
-            if (pass === "secret123") { // Your actual password
+            if (pass === "secret123") { 
                 isAdmin = true;
                 currentUser = "Studio Host"; 
                 document.getElementById("admin-login").classList.add("hidden");
                 document.getElementById("admin-controls").classList.remove("hidden");
-                
-                // Auto-send a system message when admin logs in
-                addMessageToChat("System", "Studio Host has connected.", true);
             } else {
-                alert("Access Denied. Incorrect password.");
+                alert("Incorrect password.");
             }
         }
 
-        // Chat functionality
         function sendChatMessage() {
             const input = document.getElementById("chat-input");
             const text = input.value.trim();
             if (text === "") return;
 
-            addMessageToChat(currentUser, text, false);
-            input.value = ""; // clear input
-        }
-
-        // Helper function to build chat messages
-        function addMessageToChat(senderName, messageText, isSystemMsg) {
             const chatBox = document.getElementById("chat-box");
             const msgDiv = document.createElement("div");
             msgDiv.classList.add("message");
 
-            if (isSystemMsg) {
-                 msgDiv.innerHTML = `<span style="color: #aaa; font-style: italic;">${messageText}</span>`;
-            }
-            else if (isAdmin) {
+            if (isAdmin) {
                 msgDiv.classList.add("admin-msg");
-                msgDiv.innerHTML = `<span class="sender">${senderName} <span class="admin-badge">HOST</span></span>: ${messageText}`;
+                msgDiv.innerHTML = `<span class="sender">${currentUser} <span class="admin-badge">HOST</span></span>: ${text}`;
             } else {
-                msgDiv.innerHTML = `<span class="sender">${senderName}</span>: ${messageText}`;
+                msgDiv.innerHTML = `<span class="sender">${currentUser}</span>: ${text}`;
             }
 
             chatBox.appendChild(msgDiv);
             chatBox.scrollTop = chatBox.scrollHeight;
+            input.value = "";
         }
-
-        // Press 'Enter' to send messages
-        document.getElementById("chat-input").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                sendChatMessage();
-            }
-        });
-        
-        // Press 'Enter' to login admin
-        document.getElementById("admin-password").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                loginAdmin();
-            }
-        });
-        
-        // Press 'Enter' on popup
-        document.getElementById("listener-name").addEventListener("keypress", function(event) {
-            if (event.key === "Enter") {
-                tuneIn();
-            }
-        });
     </script>
 </body>
 </html>
