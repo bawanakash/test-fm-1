@@ -2,192 +2,433 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bawan's Global Live Station</title>
     <style>
-        /* --- ULTRA FAST STYLING --- */
-        * { box-sizing: border-box; }
+        :root {
+            --bg-color: #050b14;
+            --card-bg: rgba(17, 25, 40, 0.75);
+            --accent-glow: #3b82f6;
+            --accent-neon: #00f2fe;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
         
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
         body {
-            /* Uses the phone's native font - Zero download time */
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #050b14 100%);
+            color: var(--text-main);
             margin: 0;
-            height: 100vh;
+            padding: 15px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            color: #ffffff;
-            background-color: #0f172a; /* Solid dark color, instantly loads */
+            min-height: 100vh;
         }
 
-        .panel {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             padding: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 900;
+            margin: 0 0 5px 0;
+            background: linear-gradient(to right, #fff, var(--accent-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        p.subtitle { color: var(--accent-glow); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 20px 0; }
+        h3 { margin: 0 0 12px 0; color: #fff; font-weight: 600; font-size: 15px; text-align: left;}
+        
+        .media-box {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 18px;
+            margin: 15px 0;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border: 1px solid rgba(0, 242, 254, 0.1);
+            position: relative;
         }
 
-        h2, h3 { margin-top: 0; font-weight: 600; color: #38bdf8; }
-        h3 { border-bottom: 1px solid #334155; padding-bottom: 10px; }
-
-        input {
-            width: 100%; padding: 12px; margin: 10px 0;
-            background: #0f172a; border: 1px solid #334155;
-            border-radius: 8px; color: white; font-size: 16px;
+        audio, video { 
+            width: 100%; 
+            max-height: 220px; 
+            border-radius: 12px; 
+            margin-top: 15px;
+            outline: none;
+        }
+        
+        input[type="text"], input[type="password"], textarea {
+            width: 100%;
+            padding: 14px;
+            margin: 8px 0;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 15px;
+            transition: all 0.3s ease;
         }
 
-        input:focus { outline: none; border-color: #38bdf8; }
-
+        input:focus, textarea:focus { border-color: var(--accent-neon); outline: none; background: rgba(0, 0, 0, 0.5); }
+        
         button {
-            width: 100%; padding: 14px; margin-top: 10px;
-            background: #0ea5e9; color: white; border: none;
-            border-radius: 8px; font-weight: bold; font-size: 16px;
+            width: 100%;
+            padding: 16px;
+            margin: 10px 0;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 15px;
             cursor: pointer;
+            border: none;
+            color: #050b14;
+            background: linear-gradient(135deg, var(--accent-neon), var(--accent-glow));
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
+        button:active { transform: scale(0.97); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        button:active { background: #0284c7; }
-        button:disabled { background: #475569; cursor: not-allowed; }
-
-        /* --- LAYOUT --- */
-        #entry-popup {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #0f172a; display: flex;
-            justify-content: center; align-items: center; z-index: 100;
-        }
-        
-        .popup-content { width: 90%; max-width: 350px; text-align: center; }
-
-        #main-app {
-            display: none; width: 95%; max-width: 900px;
-        }
-
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
-
-        /* --- CHAT --- */
-        #chat-box {
-            height: 300px; overflow-y: auto; background: #0f172a;
-            border-radius: 8px; padding: 15px; margin-bottom: 10px;
-        }
-        .message { margin-bottom: 12px; font-size: 14px; }
-        .message .sender { font-weight: bold; color: #38bdf8; }
-        .admin-msg { background: #451a03; padding: 8px; border-left: 4px solid #f59e0b; }
-        .admin-msg .sender { color: #f59e0b; }
-        .admin-badge { background: #f59e0b; color: #000; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 5px; }
-        
         .hidden { display: none !important; }
+        
+        /* Two-Way Chat Box styling */
+        .chat-box { 
+            background: rgba(0,0,0,0.5); 
+            padding: 15px; 
+            border-radius: 12px; 
+            height: 220px; 
+            overflow-y: auto; 
+            text-align: left; 
+            font-size: 14px; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            margin-bottom: 10px;
+        }
+        .chat-msg { border-bottom: 1px solid rgba(255,255,255,0.05); padding: 10px 0; color: #e2e8f0; line-height: 1.4; word-break: break-word; }
+        .chat-name { color: var(--accent-neon); font-weight: bold; margin-right: 5px; font-size: 12px; text-transform: uppercase; }
+        
+        /* Premium Admin Decoration */
+        .admin-msg-style {
+            background: rgba(245, 158, 11, 0.1); /* Soft Gold Background */
+            border-left: 3px solid #f59e0b;
+            padding-left: 10px;
+            border-radius: 4px;
+        }
+
+        .admin-panel {
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.95), rgba(5, 11, 20, 0.95));
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+        }
+        .admin-section-title {
+            font-size:12px; 
+            font-weight:800; 
+            color: var(--accent-glow); 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 5px;
+        }
+
+        /* Overlay for Initial Name Capture */
+        #welcomeOverlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--card-bg);
+            border-radius: 24px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+        }
     </style>
 </head>
 <body>
 
-    <div id="entry-popup">
-        <div class="panel popup-content">
-            <h2>Bawan Radio</h2>
-            <p style="color: #94a3b8; font-size: 14px;">Enter your name to connect</p>
-            <input type="text" id="listener-name" placeholder="Display Name..." required>
-            <button id="tune-btn" onclick="tuneIn()">Tune In Live</button>
-        </div>
-    </div>
-
-    <div id="main-app" class="hidden">
-        <h2 style="text-align: center; margin-bottom: 20px;">Welcome, <span id="display-name" style="color: white;"></span>!</h2>
+    <div class="container" id="mainAppContainer">
         
-        <div class="grid">
-            <div class="panel">
-                <h3>Live Chat</h3>
-                <div id="chat-box"></div>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="chat-input" placeholder="Message...">
-                    <button onclick="sendChatMessage()" style="width: 80px; margin: 10px 0;">Send</button>
-                </div>
+        <div id="welcomeOverlay">
+            <h2 style="margin: 0 0 10px 0; color: #fff;">Welcome to the Station!</h2>
+            <p style="color: var(--text-dim); font-size: 14px; margin-bottom: 20px;">Enter your name to join the live chat and tune in.</p>
+            <input type="text" id="listenerNameInput" placeholder="Your Name or Nickname" autocomplete="off" style="text-align: center; font-size: 16px;">
+            <button id="enterStationBtn" style="background: #10b981; color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);">🎧 Tune In Now</button>
+        </div>
+
+        <h1>📻 BAWAN'S STATION</h1>
+        <p class="subtitle">Global Live Broadcast</p>
+
+        <div class="media-box" id="mediaContainer">
+            <div id="playingAnimation" class="hidden" style="color: var(--accent-neon); font-size: 24px; margin-bottom: 10px;">ılıılıılı</div>
+            <p id="trackNameDisplay" style="font-weight: 700; color: #fff; margin: 0; font-size: 15px; word-break: break-all;">Waiting for stream...</p>
+            
+            <audio id="globalPlayer" controls playsinline webkit-playsinline style="width: 100%; display: none; margin-top: 15px;"></audio>
+            <video id="globalVideoPlayer" controls playsinline webkit-playsinline style="width: 100%; display: none; margin-top: 15px;"></video>
+        </div>
+
+        <div style="margin-top: 25px; text-align: left;">
+            <span class="admin-section-title" style="border: none; padding: 0;">Live Listener Chat</span>
+            
+            <div id="publicChatBox" class="chat-box">
+                <p style="color: var(--text-dim); text-align:center; padding-top: 20px;">Loading messages...</p>
             </div>
 
-            <div class="panel">
-                <h3>Studio Console</h3>
-                <div id="admin-login">
-                    <input type="password" id="admin-password" placeholder="Admin Key">
-                    <button onclick="loginAdmin()" style="background: #e11d48;">Unlock</button>
-                </div>
-                <div id="admin-controls" class="hidden" style="text-align: center; padding-top: 20px;">
-                    <p style="color: #38bdf8; font-weight: bold;">Console Unlocked</p>
-                    <p style="color: #94a3b8; font-size: 14px;">Ready to broadcast.</p>
-                </div>
+            <div style="display: flex; gap: 8px;">
+                <input type="text" id="userSuggestion" placeholder="Type a message..." style="margin: 0; flex-grow: 1;" autocomplete="off">
+                <button id="submitSuggestBtn" type="button" style="margin: 0; width: 80px; padding: 12px; font-size: 13px; background: rgba(255,255,255,0.1); color: #fff; box-shadow: none;">Send</button>
             </div>
         </div>
     </div>
 
-    <audio id="station-audio" preload="none">
-        <source src="YOUR_AUDIO_LINK_HERE.mp3" type="audio/mpeg">
-    </audio>
+    <div style="width: 100%; max-width: 450px; margin-top: 20px;">
+        
+        <div id="adminLoginGate" class="container" style="background: rgba(0,0,0,0.3); border: 1px dashed rgba(255,255,255,0.1); padding: 15px;">
+            <p style="color: var(--text-dim); font-size: 12px; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 1px;">Admin Access</p>
+            <input type="password" id="adminPassInput" placeholder="Studio Password">
+            <button id="loginBtn" type="button" style="background: #334155; color: white; padding: 10px; font-size: 13px;">Unlock Console</button>
+            <p id="loginError" style="color: #ef4444; font-size: 12px; margin-top: 5px;" class="hidden">❌ Incorrect Password.</p>
+        </div>
+
+        <div id="bawanControlPanel" class="container admin-panel hidden">
+            <h2 style="margin:0 0 20px 0; color:#fff; font-size:22px; text-align: center;">👑 Studio Console</h2>
+            
+            <div style="text-align: left; margin-bottom: 10px;">
+                <span class="admin-section-title">Broadcast Track</span>
+                <input type="file" id="mediaUpload" accept="audio/*, video/*" style="padding: 10px; margin-top:5px; background: rgba(0,0,0,0.2);">
+                <p id="uploadStatus" class="hidden" style="font-size:13px; margin: 8px 0 0 0; color: #f59e0b; font-weight:bold;"></p>
+            </div>
+            
+            <p style="color: #94a3b8; font-size: 12px; text-align: left;">* Note: Chat from the public listener box above. You will now appear as the Studio Host.</p>
+        </div>
+    </div>
 
     <script>
-        let currentUser = "";
-        let isAdmin = false;
+        const SUPABASE_URL = "https://nwyvennvjugzsdamqrug.supabase.co"; 
+        const SUPABASE_KEY = "sb_publishable_qHQLQ1YPmDwweggO0mWNPw_piFdvS8R";
 
-        function tuneIn() {
-            const nameInput = document.getElementById("listener-name").value.trim();
-            if (nameInput === "") {
-                alert("Please enter a name!"); return;
+        // Global Variables
+        let currentActiveUrl = "";
+        let listenerName = "Anonymous Listener"; 
+        let isTunedIn = false;
+        let isAdmin = false; // Tracks if the current user is the decorated admin
+
+        const globalPlayer = document.getElementById('globalPlayer');
+        const globalVideoPlayer = document.getElementById('globalVideoPlayer');
+        const trackNameDisplay = document.getElementById('trackNameDisplay');
+        const playingAnimation = document.getElementById('playingAnimation');
+
+        // --- 1. WELCOME NAME CAPTURE & TUNE IN ---
+        document.getElementById('enterStationBtn').addEventListener('click', () => {
+            const nameInput = document.getElementById('listenerNameInput').value.trim();
+            if (nameInput) {
+                listenerName = nameInput;
             }
-
-            // 1. Change button to show it is loading
-            const btn = document.getElementById("tune-btn");
-            btn.innerText = "Connecting to Studio...";
-            btn.disabled = true;
-
-            currentUser = nameInput;
-            document.getElementById("display-name").innerText = currentUser;
-
-            // 2. Try to play audio
-            const audio = document.getElementById("station-audio");
-            audio.volume = 0.5;
             
-            // Use a Promise to wait for the audio to actually start fetching
-            audio.play().then(() => {
-                // Once audio starts, switch the screens
-                document.getElementById("entry-popup").style.display = "none";
-                document.getElementById("main-app").classList.remove("hidden");
-            }).catch(e => {
-                console.log("Audio load error/delay:", e);
-                // If it fails (or is just slow), force the screen to switch anyway so the user isn't stuck
-                document.getElementById("entry-popup").style.display = "none";
-                document.getElementById("main-app").classList.remove("hidden");
-            });
+            document.getElementById('welcomeOverlay').style.display = 'none';
+            isTunedIn = true;
+            
+            // CRITICAL MOBILE FIX
+            globalPlayer.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA"; 
+            globalPlayer.play().catch(e => {}); 
+            globalPlayer.pause();
+            
+            syncGlobalStream(); 
+            syncLiveChat(); // Fetch chat immediately upon entering
+        });
+
+        // --- 2. STREAM SYNC LOGIC ---
+        async function syncGlobalStream() {
+            if (!isTunedIn) return; 
+
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/live_station?select=*&order=id.desc&limit=1`, {
+                    headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` }
+                });
+                const data = await res.json();
+                
+                if (data && data.length > 0) {
+                    const latestTrack = data[0];
+                    
+                    if (currentActiveUrl !== latestTrack.current_track_u) {
+                        currentActiveUrl = latestTrack.current_track_u;
+                        trackNameDisplay.textContent = latestTrack.track_name;
+                        playingAnimation.classList.remove('hidden');
+                        
+                        if (latestTrack.media_type === 'video') {
+                            globalPlayer.style.display = 'none';
+                            globalPlayer.pause();
+                            
+                            globalVideoPlayer.style.display = 'block';
+                            globalVideoPlayer.src = latestTrack.current_track_u;
+                            globalVideoPlayer.play().catch(e => console.log("Video buffering..."));
+                        } else {
+                            globalVideoPlayer.style.display = 'none';
+                            globalVideoPlayer.pause();
+                            
+                            globalPlayer.style.display = 'block';
+                            globalPlayer.src = latestTrack.current_track_u;
+                            globalPlayer.play().catch(e => console.log("Audio buffering..."));
+                        }
+                    }
+                }
+            } catch (err) { console.error("Sync lag:", err); }
         }
 
-        function loginAdmin() {
-            const pass = document.getElementById("admin-password").value;
-            if (pass === "secret123") { 
-                isAdmin = true;
-                currentUser = "Studio Host"; 
-                document.getElementById("admin-login").classList.add("hidden");
-                document.getElementById("admin-controls").classList.remove("hidden");
-            } else {
-                alert("Incorrect password.");
-            }
+        // --- 3. PUBLIC CHAT SYNC (Visible to everyone) ---
+        async function syncLiveChat() {
+            if (!isTunedIn) return;
+
+            try {
+                const res = await fetch(`${SUPABASE_URL}/rest/v1/requests?select=*&order=id.desc&limit=30`, {
+                    headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` }
+                });
+                const data = await res.json();
+                
+                if (data && data.length > 0) {
+                    const chatBox = document.getElementById('publicChatBox');
+                    
+                    // Check if scrolled to bottom to auto-scroll later
+                    const isScrolledToBottom = chatBox.scrollHeight - chatBox.clientHeight <= chatBox.scrollTop + 10;
+                    
+                    chatBox.innerHTML = '';
+                    
+                    // Reverse data so oldest is at top, newest at bottom
+                    data.slice().reverse().forEach(req => {
+                        chatBox.innerHTML += `<div class="chat-msg">${req.message}</div>`;
+                    });
+
+                    // Auto-scroll to latest message
+                    if (isScrolledToBottom) {
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    }
+                }
+            } catch(e) {}
         }
 
-        function sendChatMessage() {
-            const input = document.getElementById("chat-input");
-            const text = input.value.trim();
-            if (text === "") return;
+        // --- 4. SENDING CHAT MESSAGES WITH ADMIN DECORATION ---
+        const submitBtn = document.getElementById('submitSuggestBtn');
+        
+        async function sendMessage() {
+            const val = document.getElementById('userSuggestion').value.trim();
+            if(!val) return;
 
-            const chatBox = document.getElementById("chat-box");
-            const msgDiv = document.createElement("div");
-            msgDiv.classList.add("message");
+            submitBtn.disabled = true;
+            submitBtn.textContent = "...";
 
+            let formattedMessage = "";
+            
+            // 👑 Admin Decoration Logic
             if (isAdmin) {
-                msgDiv.classList.add("admin-msg");
-                msgDiv.innerHTML = `<span class="sender">${currentUser} <span class="admin-badge">HOST</span></span>: ${text}`;
+                formattedMessage = `<div class="admin-msg-style"><span class="chat-name" style="color: #f59e0b;">👑 ${listenerName}:</span> <span style="color: #fde68a; font-weight: bold;">${val}</span></div>`;
             } else {
-                msgDiv.innerHTML = `<span class="sender">${currentUser}</span>: ${text}`;
+                formattedMessage = `<span class="chat-name">${listenerName}:</span> ${val}`;
             }
 
-            chatBox.appendChild(msgDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-            input.value = "";
+            try {
+                await fetch(`${SUPABASE_URL}/rest/v1/requests`, {
+                    method: 'POST',
+                    headers: { "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY, "Content-Type": "application/json" },
+                    body: JSON.stringify({ message: formattedMessage })
+                });
+                
+                document.getElementById('userSuggestion').value = '';
+                syncLiveChat(); // Instantly fetch the new message
+            } catch(e) {
+                console.error("Chat send failed");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Send";
+            }
         }
+
+        submitBtn.addEventListener('click', sendMessage);
+        
+        // Allow pressing Enter to send message
+        document.getElementById('userSuggestion').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // --- 5. ADMIN LOGIN & UPLOAD ---
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            if (document.getElementById('adminPassInput').value.trim() === "0135") {
+                
+                // Set Admin Variables
+                isAdmin = true;
+                listenerName = "Studio Host"; 
+                
+                document.getElementById('adminLoginGate').classList.add('hidden');
+                document.getElementById('bawanControlPanel').classList.remove('hidden');
+                
+            } else {
+                document.getElementById('loginError').classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('mediaUpload').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const uploadStatus = document.getElementById('uploadStatus');
+            uploadStatus.textContent = "Uploading to Cloud... Please wait.";
+            uploadStatus.style.color = "#f59e0b";
+            uploadStatus.classList.remove('hidden');
+
+            const uniqueName = Date.now() + "_" + file.name.replace(/\s+/g, '_');
+            const uploadUrl = `${SUPABASE_URL}/storage/v1/object/radio/${uniqueName}`;
+
+            try {
+                const storageRes = await fetch(uploadUrl, {
+                    method: 'POST',
+                    headers: { "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY, "Content-Type": file.type },
+                    body: file
+                });
+
+                if (storageRes.ok) {
+                    const publicFileUrl = `${SUPABASE_URL}/storage/v1/object/public/radio/${uniqueName}`;
+                    const trackType = file.type.startsWith('video') ? 'video' : 'audio';
+
+                    await fetch(`${SUPABASE_URL}/rest/v1/live_station`, {
+                        method: 'POST',
+                        headers: { "Authorization": `Bearer ${SUPABASE_KEY}`, "apikey": SUPABASE_KEY, "Content-Type": "application/json" },
+                        body: JSON.stringify({ current_track_u: publicFileUrl, track_name: file.name, media_type: trackType })
+                    });
+
+                    uploadStatus.textContent = "✓ Track Broadcast Live!";
+                    uploadStatus.style.color = "#10b981";
+                    syncGlobalStream();
+                }
+            } catch (err) { uploadStatus.textContent = "Upload failed."; uploadStatus.style.color = "#ef4444"; }
+        });
+
+        // Loop the song and chat check every 4 seconds in the background
+        setInterval(() => {
+            syncGlobalStream();
+            syncLiveChat();
+        }, 4000);
     </script>
 </body>
 </html>
