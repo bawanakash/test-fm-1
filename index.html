@@ -6,7 +6,7 @@
     <title>Bawan's Global Live Station</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* --- CORE STYLING & ANIMATED BACKGROUND --- */
+        /* --- CORE STYLING & HIGH-PERFORMANCE BACKGROUND --- */
         * { box-sizing: border-box; }
         
         body {
@@ -17,28 +17,19 @@
             justify-content: center;
             align-items: center;
             color: #ffffff;
-            /* Animated Deep Gradient Background */
-            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0f172a);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            overflow: hidden;
+            /* Static, high-performance gradient */
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* --- GLASSMORPHISM PANELS --- */
+        /* --- OPTIMIZED GLASSMORPHISM PANELS --- */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.08); /* Slightly darker */
+            backdrop-filter: blur(8px); /* Lower blur for massive performance boost */
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Softer shadow */
             transition: all 0.3s ease;
         }
 
@@ -219,7 +210,7 @@
         </div>
     </div>
 
-    <audio id="station-audio" loop>
+    <audio id="station-audio" loop preload="none">
         <source src="YOUR_AUDIO_LINK_HERE.mp3" type="audio/mpeg">
     </audio>
 
@@ -267,7 +258,7 @@
                 document.getElementById("admin-login").classList.add("hidden");
                 document.getElementById("admin-controls").classList.remove("hidden");
                 
-                // Optional: Auto-send a system message when admin logs in
+                // Auto-send a system message when admin logs in
                 addMessageToChat("System", "Studio Host has connected.", true);
             } else {
                 alert("Access Denied. Incorrect password.");
